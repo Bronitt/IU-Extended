@@ -19,6 +19,7 @@ import com.denfop.api.tile.IMultiTileBlock;
 import com.denfop.blocks.BlockTileEntity;
 import com.denfop.componets.Fluids;
 import com.denfop.componets.HeatComponent;
+import com.denfop.invslot.InvSlot.TypeItemSlot;
 import com.denfop.invslot.InvSlotFluidByList;
 import com.denfop.network.DecoderHandler;
 import com.denfop.network.EncoderHandler;
@@ -29,6 +30,7 @@ import com.denfop.network.packet.PacketUpdateFieldTile;
 import com.denfop.tiles.base.TileEntityInventory;
 import com.denfop.tiles.mechanism.multiblocks.base.TileMultiBlockBase;
 import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -40,6 +42,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -53,10 +56,10 @@ public class TileAssemblerMain extends TileMultiBlockBase
                    IUpdatableTileEvent,
                    IAudioFixer {
 
-    public Fluids.InternalFluidTank tank1 = assemblerInputFluid.getFluidTank(1);
-    public Fluids.InternalFluidTank tank2 = assemblerInputFluid.getFluidTank(2);
-    public Fluids.InternalFluidTank tank3 = assemblerInputFluid.getFluidTank(3);
-    public Fluids.InternalFluidTank tank4 = assemblerInputFluid.getFluidTank(4);
+    public FluidTank tank1;
+    public FluidTank tank2;
+    public FluidTank tank3;
+    public FluidTank tank4;
     public Predicate<Fluid> acceptedFluids = Fluids.fluidPredicate(); //TODO
 
     public final InvSlotOutput output1;
@@ -80,6 +83,10 @@ public class TileAssemblerMain extends TileMultiBlockBase
         super(AssemblerHandler.assemblerMultiBlock);
         this.full = false;
         final Fluids fluids = this.addComponent(new Fluids(this));
+        this.tank1 = fluids.addTank("tank1", 100000, TypeItemSlot.INPUT_OUTPUT, Predicates.alwaysTrue() /*acceptedFluids*/);   //TODO
+        this.tank2 = fluids.addTank("tank2", 100000, TypeItemSlot.INPUT_OUTPUT, Predicates.alwaysTrue() /*acceptedFluids*/);   //TODO
+        this.tank3 = fluids.addTank("tank3", 100000, TypeItemSlot.INPUT_OUTPUT, Predicates.alwaysTrue() /*acceptedFluids*/);   //TODO
+        this.tank4 = fluids.addTank("tank4", 100000, TypeItemSlot.INPUT_OUTPUT, Predicates.alwaysTrue() /*acceptedFluids*/);   //TODO
         this.entityPlayerList = new ArrayList<>();
         this.fluidSlot = new InvSlotFluidByList(this, 1, FluidRegistry.WATER);
         this.output1 = new InvSlotOutput(this, 1);
