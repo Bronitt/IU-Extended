@@ -7,7 +7,7 @@ repositories {
         forRepository {
             maven {
                 name 'CurseMaven'
-                url 'https://cursemaven.com'
+                url 'https://curse.cleanroommc.com'
             }
         }
         filter {
@@ -65,4 +65,12 @@ dependencies {
     // implementation ('com.google.code.gson:gson:2.8.6') {
     //     transitive = false
     // }
+
+    runtimeOnly "curse.maven:industrial-upgrade-372007:6788978"
+    runtimeOnly "curse.maven:had-enough-items-557549:4543375"
+    implementation "curse.maven:the-one-probe-245211:2667280"
+    implementation "curse.maven:top-addons-247111:2887479"
+    implementation "curse.maven:mekanism-268560:2835175"
+    compileOnly fileTree("lib")
+
 }

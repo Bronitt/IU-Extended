@@ -1,0 +1,36 @@
+{
+  "forge_marker" : 1,
+  "variants" : {
+    "type" : {
+      "assembler_gas_input" : {
+        "model" : "iuextended:assembler_gas_input"
+      },
+      "assembler_meka_heat" : {
+        "model" : "iuextended:assembler_meka_heat"
+      }
+    },
+    "facing" : {
+      "down" : {
+        "x" : 90
+      },
+      "up" : {
+        "x" : 270
+      },
+      "north" : {
+        "transform" : "forge:default-block"
+      },
+      "south" : {
+        "y" : 180
+      },
+      "west" : {
+        "y" : 270
+      },
+      "east" : {
+        "y" : 90
+      }
+    },
+    "inventory" : [
+      {}
+    ]
+  }
+}

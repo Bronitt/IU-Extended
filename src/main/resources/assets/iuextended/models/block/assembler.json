@@ -1,0 +1,12 @@
+{
+  "parent" : "block/cube",
+  "textures" : {
+    "particle" : "iuextended:blocks/assembler",
+    "down" : "iuextended:blocks/assembler",
+    "up" : "iuextended:blocks/assembler",
+    "north" : "iuextended:blocks/assembler",
+    "east" : "iuextended:blocks/assembler",
+    "south" : "iuextended:blocks/assembler",
+    "west" : "iuextended:blocks/assembler"
+  }
+}

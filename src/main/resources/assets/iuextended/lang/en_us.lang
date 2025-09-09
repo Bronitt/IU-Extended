@@ -1,0 +1,19 @@
+#TABS
+itemGroup.main_tab=IU Extended
+
+#TILES
+iuextended.assembler.assembler_main=Assembler Controller
+iuextended.assembler.assembler_casing=Assembler Casing
+iuextended.assembler.assembler_input_fluid=Assembler Fluid Input
+iuextended.assembler.assembler_heat=Assembler Heating Pump
+
+iuextended.assembler_meka.assembler_gas_input=Assembler Gas Input
+iuextended.assembler_meka.assembler_meka_heat=Assembler Heating Pump (Mekanism)
+
+#TOOLTIPS
+iuextended.need_heat=Heat the machine using a Liquid or Electric heater
+iuextended.empty_tank=Empty
+iuextended.invalid_fluid_stack=ERROR! Invalid Fluid Stack
+
+iuextended.assembler.info1=Put last:
+iuextended.assembler.info2=RMB on the controller with
