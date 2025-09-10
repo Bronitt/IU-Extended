@@ -5,8 +5,6 @@ import bronit.iuextended.blocks.multiblock.assembler.BlockMekaAssembler;
 import bronit.iuextended.components.mekanism.MekaGasses;
 import bronit.iuextended.tile.mechanism.assembler.block.TileAssemblerMain;
 import bronit.iuextended.tile.mechanism.assembler.integration.mekanism.api.IAssemblerMekaGasInput;
-import com.denfop.IUItem;
-import com.denfop.Localization;
 import com.denfop.api.tile.IMultiTileBlock;
 import com.denfop.blocks.BlockTileEntity;
 import com.denfop.invslot.InvSlot;

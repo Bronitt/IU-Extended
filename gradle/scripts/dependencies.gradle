@@ -25,6 +25,10 @@ repositories {
             includeGroup 'maven.modrinth'
         }
     }
+    maven {
+        name 'Cleanroom Maven'
+        url 'https://maven.cleanroommc.com'
+    }
     mavenLocal() // Must be last for caching to work
 }
 
@@ -67,7 +71,9 @@ dependencies {
     // }
 
     runtimeOnly "curse.maven:industrial-upgrade-372007:6788978"
+    runtimeOnly "curse.maven:modularui-624243:6919652"
     runtimeOnly "curse.maven:had-enough-items-557549:4543375"
+    implementation "curse.maven:groovyscript-687577:5789690"
     implementation "curse.maven:the-one-probe-245211:2667280"
     implementation "curse.maven:top-addons-247111:2887479"
     implementation "curse.maven:mekanism-268560:2835175"

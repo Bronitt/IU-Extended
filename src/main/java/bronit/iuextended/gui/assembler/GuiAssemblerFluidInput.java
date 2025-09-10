@@ -35,20 +35,19 @@ public class GuiAssemblerFluidInput extends GuiIU<ContainerAssemblerFluidInput> 
                 FluidTank tank = tile_entity.tank1;
                 List<String> stringList = new ArrayList<>();
                 if (tank == null) {
-                    stringList.add(Localization.translate("iuextended.empty_tank"));
-                    stringList.add("0 / " + tile_entity.tank1.getCapacity() + "mB");
+                    stringList.add("Tank error! Please report to issues");
                 } else {
+                    int tank_capacity = tank.getCapacity();
                     FluidStack fs = tank.getFluid();
                     if (fs == null || fs.amount <= 0) {
-                        stringList.add(Localization.translate("iuextended.empty_tank"));
-                        stringList.add("0 / " + tile_entity.tank1.getCapacity() + "mB");
+                        stringList.add("0 / " + tank_capacity + "mB");
                     } else {
                         Fluid fluid = fs.getFluid();
                         if (fluid == null) {
                             stringList.add(Localization.translate("iuextended.invalid_fluid_stack"));
                         } else {
                             stringList.add(fluid.getLocalizedName(fs));
-                            stringList.add(fs.amount + " / " + tile_entity.tank1.getCapacity() + "mB");
+                            stringList.add(fs.amount + " / " + tank_capacity + "mB");
                         }
                     }
                 }
@@ -62,20 +61,19 @@ public class GuiAssemblerFluidInput extends GuiIU<ContainerAssemblerFluidInput> 
                 FluidTank tank = tile_entity.tank2;
                 List<String> stringList = new ArrayList<>();
                 if (tank == null) {
-                    stringList.add(Localization.translate("iuextended.empty_tank"));
-                    stringList.add("0 / " + tile_entity.tank2.getCapacity() + "mB");
+                    stringList.add("Tank error! Please report to issues");
                 } else {
+                    int tank_capacity = tank.getCapacity();
                     FluidStack fs = tank.getFluid();
                     if (fs == null || fs.amount <= 0) {
-                        stringList.add(Localization.translate("iuextended.empty_tank"));
-                        stringList.add("0 / " + tile_entity.tank2.getCapacity() + "mB");
+                        stringList.add("0 / " + tank_capacity + "mB");
                     } else {
                         Fluid fluid = fs.getFluid();
                         if (fluid == null) {
                             stringList.add(Localization.translate("iuextended.invalid_fluid_stack"));
                         } else {
                             stringList.add(fluid.getLocalizedName(fs));
-                            stringList.add(fs.amount + " / " + tile_entity.tank2.getCapacity() + "mB");
+                            stringList.add(fs.amount + " / " + tank_capacity + "mB");
                         }
                     }
                 }
@@ -89,20 +87,19 @@ public class GuiAssemblerFluidInput extends GuiIU<ContainerAssemblerFluidInput> 
                 FluidTank tank = tile_entity.tank3;
                 List<String> stringList = new ArrayList<>();
                 if (tank == null) {
-                    stringList.add(Localization.translate("iuextended.empty_tank"));
-                    stringList.add("0 / " + tile_entity.tank3.getCapacity() + "mB");
+                    stringList.add("Tank error! Please report to issues");
                 } else {
+                    int tank_capacity = tank.getCapacity();
                     FluidStack fs = tank.getFluid();
                     if (fs == null || fs.amount <= 0) {
-                        stringList.add(Localization.translate("iuextended.empty_tank"));
-                        stringList.add("0 / " + tile_entity.tank3.getCapacity() + "mB");
+                        stringList.add("0 / " + tank_capacity + "mB");
                     } else {
                         Fluid fluid = fs.getFluid();
                         if (fluid == null) {
                             stringList.add(Localization.translate("iuextended.invalid_fluid_stack"));
                         } else {
                             stringList.add(fluid.getLocalizedName(fs));
-                            stringList.add(fs.amount + " / " + tile_entity.tank3.getCapacity() + "mB");
+                            stringList.add(fs.amount + " / " + tank_capacity + "mB");
                         }
                     }
                 }
@@ -116,20 +113,19 @@ public class GuiAssemblerFluidInput extends GuiIU<ContainerAssemblerFluidInput> 
                 FluidTank tank = tile_entity.tank4;
                 List<String> stringList = new ArrayList<>();
                 if (tank == null) {
-                    stringList.add(Localization.translate("iuextended.empty_tank"));
-                    stringList.add("0 / " + tile_entity.tank4.getCapacity() + "mB");
+                    stringList.add("Tank error! Please report to issues");
                 } else {
+                    int tank_capacity = tank.getCapacity();
                     FluidStack fs = tank.getFluid();
                     if (fs == null || fs.amount <= 0) {
-                        stringList.add(Localization.translate("iuextended.empty_tank"));
-                        stringList.add("0 / " + tile_entity.tank4.getCapacity() + "mB");
+                        stringList.add("0 / " + tank_capacity + "mB");
                     } else {
                         Fluid fluid = fs.getFluid();
                         if (fluid == null) {
                             stringList.add(Localization.translate("iuextended.invalid_fluid_stack"));
                         } else {
                             stringList.add(fluid.getLocalizedName(fs));
-                            stringList.add(fs.amount + " / " + tile_entity.tank4.getCapacity() + "mB");
+                            stringList.add(fs.amount + " / " + tank_capacity + "mB");
                         }
                     }
                 }

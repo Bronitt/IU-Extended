@@ -6,6 +6,14 @@ import bronit.iuextended.blocks.multiblock.assembler.BlockAssembler;
 import bronit.iuextended.container.assembler.ContainerAssemblerFluidInput;
 import bronit.iuextended.gui.assembler.GuiAssemblerFluidInput;
 import bronit.iuextended.tile.mechanism.assembler.api.IAssemblerInputFluid;
+import bronit.iuextended.tile.mechanism.assembler.gui.GuiAssemblerFluidInputBus;
+import com.cleanroommc.modularui.api.IGuiHolder;
+import com.cleanroommc.modularui.factory.ClientGUI;
+import com.cleanroommc.modularui.factory.GuiFactories;
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.UISettings;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.denfop.api.tile.IMultiTileBlock;
 import com.denfop.blocks.BlockTileEntity;
 import com.denfop.componets.Fluids;
@@ -15,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-public class TileAssemblerFluidInput extends TileEntityMultiBlockElement implements IAssemblerInputFluid {
+public class TileAssemblerFluidInput extends TileEntityMultiBlockElement implements IAssemblerInputFluid, IGuiHolder<PosGuiData> {
 
     private final Fluids fluids = this.addComponent(new Fluids(this));
     public List<EntityPlayer> entityPlayerList;
@@ -87,12 +96,6 @@ public class TileAssemblerFluidInput extends TileEntityMultiBlockElement impleme
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public GuiScreen getGui(final EntityPlayer entityPlayer, final boolean b) {
-        return new GuiAssemblerFluidInput(this.getGuiContainer(entityPlayer));
-    }
-
-    @Override
     public boolean onActivated(
             final EntityPlayer player,
             final EnumHand hand,
@@ -112,12 +115,19 @@ public class TileAssemblerFluidInput extends TileEntityMultiBlockElement impleme
                         this.getFluid()
                                 .getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side)
                 );
+            } else {
+                GuiFactories.tileEntity().open(player, pos);
+                return true;
             }
         }
 
         return super.onActivated(player, hand, side, hitX, hitY, hitZ);
     }
 
-
+    @Override
+    public ModularPanel buildUI(PosGuiData guiData, PanelSyncManager syncManager, UISettings settings) {
+        GuiAssemblerFluidInputBus gui = new GuiAssemblerFluidInputBus(this.getGuiContainer(guiData.getPlayer()));
+        return gui.createGUI();
+    }
 
 }
