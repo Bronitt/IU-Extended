@@ -25,10 +25,10 @@ public class GuiAssemblerFluidInputBus {
         ModularPanel panel = ModularPanel.defaultPanel("assembler_fluid_input_bus_panel", 195, 166);
         panel
                 .child(IKey.str(Localization.translate(this.tile_entity.getName())).asWidget().center().top(7))
-                .child(new FluidTankWidget(this.tile_entity.tank1, 10, 18))
-                .child(new FluidTankWidget(this.tile_entity.tank2, 60, 18))
-                .child(new FluidTankWidget(this.tile_entity.tank3, 110, 18))
-                .child(new FluidTankWidget(this.tile_entity.tank4, 160, 18));
+                .child(new FluidTankWidget(10, 18).syncHandler(this.tile_entity.tank1))
+                .child(new FluidTankWidget(60, 18).syncHandler(this.tile_entity.tank2))
+                .child(new FluidTankWidget(110, 18).syncHandler(this.tile_entity.tank3))
+                .child(new FluidTankWidget(160, 18).syncHandler(this.tile_entity.tank4));
         return panel;
     }
 

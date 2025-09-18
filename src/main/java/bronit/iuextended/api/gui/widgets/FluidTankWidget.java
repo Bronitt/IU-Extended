@@ -1,6 +1,5 @@
 package bronit.iuextended.api.gui.widgets;
 
-import bronit.iuextended.IUECore;
 import bronit.iuextended.IUECore.Constants;
 import bronit.iuextended.api.gui.sync.FluidTankSyncHandler;
 import com.cleanroommc.modularui.ModularUI;
@@ -13,7 +12,6 @@ import com.cleanroommc.modularui.drawable.text.TextRenderer;
 import com.cleanroommc.modularui.integration.jei.JeiGhostIngredientSlot;
 import com.cleanroommc.modularui.integration.jei.JeiIngredientProvider;
 import com.cleanroommc.modularui.integration.jei.ModularUIJeiPlugin;
-import com.cleanroommc.modularui.screen.viewport.GuiContext;
 import com.cleanroommc.modularui.screen.viewport.ModularGuiContext;
 import com.cleanroommc.modularui.theme.WidgetSlotTheme;
 import com.cleanroommc.modularui.theme.WidgetTheme;
@@ -23,7 +21,6 @@ import com.cleanroommc.modularui.widget.Widget;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.IFluidTank;
 
 import javax.annotation.Nullable;
@@ -31,7 +28,6 @@ import javax.annotation.Nullable;
 public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhostIngredientSlot<FluidStack>, JeiIngredientProvider {
 
     private final TextRenderer text_renderer = new TextRenderer();
-    private final IFluidTank fluid_tank;
     private final int width = 20;
     private final int height = 55;
     private final int x;
@@ -40,8 +36,7 @@ public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhost
     private @Nullable IDrawable backgroundTexture = UITexture.fullImage(new ResourceLocation(Constants.MOD_ID, "textures/gui/fluid_tank_back.png"));
     private FluidTankSyncHandler sync_handler;
 
-    public FluidTankWidget(FluidTank fluid_tank, int x, int y) {
-        this.fluid_tank = fluid_tank;
+    public FluidTankWidget(int x, int y) {
         this.x = x;
         this.y = y;
         this.left(this.x).top(this.y);
@@ -52,11 +47,12 @@ public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhost
 
             IFluidTank tank = this.getFluidTank();
             if (this.sync_handler.getValue() != null) {
+
                 FluidStack fluid = this.sync_handler.getValue();
 
                 if (fluid != null) {
                     tooltip.addLine(IKey.str(fluid.getLocalizedName()));
-                    tooltip.addLine(IKey.str(tank.getFluidAmount() + " / " + this.fluid_tank.getCapacity()));
+                    tooltip.addLine(IKey.str(tank.getFluidAmount() + " / " + tank.getCapacity()));
                 } else {
                     tooltip.addLine(IKey.str("0 / " + tank.getCapacity()));
                 }
@@ -77,13 +73,13 @@ public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhost
     public void draw(ModularGuiContext context, WidgetTheme widgetTheme) {
 //        IUECore.LOGGER.info(this.getFluidTank() + " aaaaa " + this.getFluidTank().getFluid());
         if (this.backgroundTexture != null) {
-            this.backgroundTexture.draw(context, x - 5, y - 13, width - 10, height - 10, widgetTheme);
+            this.backgroundTexture.draw(context, 4, 4, width - 8, height - 8, widgetTheme);
         }
         IFluidTank fluidTank = getFluidTank();
-        FluidStack content = this.fluid_tank.getFluid();
+        FluidStack content = this.sync_handler.getFluidTank().getFluid();
         if (content != null) {
             float fluid_height = (float) this.height * content.amount / fluidTank.getCapacity();
-            GuiDraw.drawFluidTexture(content, this.x - (int) (width / 2), this.y + 10, this.width, fluid_height, 0);
+            GuiDraw.drawFluidTexture(content, (int) 4, this.height - fluid_height, this.width - 8, fluid_height, 0);
         }
         if (this.overlayTexture != null) {
             this.overlayTexture.drawAtZero(context, getArea(), widgetTheme);
@@ -91,7 +87,7 @@ public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhost
     }
 
     public IFluidTank getFluidTank() {
-        return this.fluid_tank;
+        return this.sync_handler.getFluidTank();
     }
 
     @Override
@@ -133,7 +129,7 @@ public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhost
 
     @Nullable
     public FluidStack getFluidStack() {
-        return this.fluid_tank == null ? null : this.fluid_tank.getFluid();
+        return this.sync_handler.getFluidTank() == null ? null : this.sync_handler.getFluidTank().getFluid();
     }
 
     @Override
