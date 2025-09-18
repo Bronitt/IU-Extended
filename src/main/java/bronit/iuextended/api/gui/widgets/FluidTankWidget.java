@@ -1,6 +1,8 @@
 package bronit.iuextended.api.gui.widgets;
 
-import bronit.iuextended.Constants;
+import bronit.iuextended.IUECore;
+import bronit.iuextended.IUECore.Constants;
+import bronit.iuextended.api.gui.sync.FluidTankSyncHandler;
 import com.cleanroommc.modularui.ModularUI;
 import com.cleanroommc.modularui.api.ITheme;
 import com.cleanroommc.modularui.api.drawable.IDrawable;
@@ -11,12 +13,12 @@ import com.cleanroommc.modularui.drawable.text.TextRenderer;
 import com.cleanroommc.modularui.integration.jei.JeiGhostIngredientSlot;
 import com.cleanroommc.modularui.integration.jei.JeiIngredientProvider;
 import com.cleanroommc.modularui.integration.jei.ModularUIJeiPlugin;
+import com.cleanroommc.modularui.screen.viewport.GuiContext;
 import com.cleanroommc.modularui.screen.viewport.ModularGuiContext;
 import com.cleanroommc.modularui.theme.WidgetSlotTheme;
 import com.cleanroommc.modularui.theme.WidgetTheme;
-import com.cleanroommc.modularui.utils.Alignment;
 import com.cleanroommc.modularui.utils.Color;
-import com.cleanroommc.modularui.utils.NumberFormat;
+import com.cleanroommc.modularui.value.sync.SyncHandler;
 import com.cleanroommc.modularui.widget.Widget;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -24,32 +26,41 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.IFluidTank;
 
+import javax.annotation.Nullable;
+
 public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhostIngredientSlot<FluidStack>, JeiIngredientProvider {
 
     private final TextRenderer text_renderer = new TextRenderer();
     private final IFluidTank fluid_tank;
-    private final int width;
-    private final int height;
+    private final int width = 20;
+    private final int height = 55;
     private final int x;
     private final int y;
-    private IDrawable overlayTexture = UITexture.fullImage(new ResourceLocation(Constants.MOD_ID, "textures/gui/fluid_tank.png"));
+    private @Nullable IDrawable overlayTexture = UITexture.fullImage(new ResourceLocation(Constants.MOD_ID, "textures/gui/fluid_tank.png"));
+    private @Nullable IDrawable backgroundTexture = UITexture.fullImage(new ResourceLocation(Constants.MOD_ID, "textures/gui/fluid_tank_back.png"));
+    private FluidTankSyncHandler sync_handler;
 
     public FluidTankWidget(FluidTank fluid_tank, int x, int y) {
         this.fluid_tank = fluid_tank;
-        this.width = 20;
-        this.height = 55;
         this.x = x;
         this.y = y;
         this.left(this.x).top(this.y);
         this.size(width, height);
+
         this.tooltip().setAutoUpdate(true);
         this.tooltipBuilder((tooltip) -> {
-            FluidStack fluid = this.fluid_tank.getFluid();
 
-            if (fluid != null) {
-                tooltip.addLine(IKey.str(fluid.getLocalizedName()));
-                tooltip.addLine(IKey.str(this.fluid_tank.getFluidAmount() + " / " + this.fluid_tank.getCapacity()));
-            } else tooltip.addLine(IKey.str("0 / " + this.fluid_tank.getCapacity()));
+            IFluidTank tank = this.getFluidTank();
+            if (this.sync_handler.getValue() != null) {
+                FluidStack fluid = this.sync_handler.getValue();
+
+                if (fluid != null) {
+                    tooltip.addLine(IKey.str(fluid.getLocalizedName()));
+                    tooltip.addLine(IKey.str(tank.getFluidAmount() + " / " + this.fluid_tank.getCapacity()));
+                } else {
+                    tooltip.addLine(IKey.str("0 / " + tank.getCapacity()));
+                }
+            }
         });
 
     }
@@ -64,11 +75,15 @@ public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhost
 
     @Override
     public void draw(ModularGuiContext context, WidgetTheme widgetTheme) {
+//        IUECore.LOGGER.info(this.getFluidTank() + " aaaaa " + this.getFluidTank().getFluid());
+        if (this.backgroundTexture != null) {
+            this.backgroundTexture.draw(context, x - 5, y - 13, width - 10, height - 10, widgetTheme);
+        }
         IFluidTank fluidTank = getFluidTank();
         FluidStack content = this.fluid_tank.getFluid();
         if (content != null) {
-            float fluid_height = this.height * content.amount * 1f / fluidTank.getCapacity();
-            GuiDraw.drawFluidTexture(content, this.x - (int) (width / 2), this.y, this.width, fluid_height, 0);
+            float fluid_height = (float) this.height * content.amount / fluidTank.getCapacity();
+            GuiDraw.drawFluidTexture(content, this.x - (int) (width / 2), this.y + 10, this.width, fluid_height, 0);
         }
         if (this.overlayTexture != null) {
             this.overlayTexture.drawAtZero(context, getArea(), widgetTheme);
@@ -116,12 +131,25 @@ public class FluidTankWidget extends Widget<FluidTankWidget> implements JeiGhost
         return getFluidStack();
     }
 
+    @Nullable
     public FluidStack getFluidStack() {
         return this.fluid_tank == null ? null : this.fluid_tank.getFluid();
     }
 
-    public void drawTankBackground() {
+    @Override
+    public boolean isValidSyncHandler(SyncHandler syncHandler) {
+        this.sync_handler = (FluidTankSyncHandler)this.castIfTypeElseNull(syncHandler, FluidTankSyncHandler.class);
+        return this.sync_handler != null;
+    }
 
+    public FluidTankWidget syncHandler(IFluidTank fluidTank) {
+        return this.syncHandler(new FluidTankSyncHandler(fluidTank));
+    }
+
+    public FluidTankWidget syncHandler(FluidTankSyncHandler syncHandler) {
+        this.setSyncHandler(syncHandler);
+        this.sync_handler = syncHandler;
+        return this;
     }
 
 }

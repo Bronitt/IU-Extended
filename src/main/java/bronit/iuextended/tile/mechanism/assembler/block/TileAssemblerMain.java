@@ -106,10 +106,10 @@ public class TileAssemblerMain extends TileMultiBlockBase
         super.readContainerPacket(customPacketBuffer);
         try {
             full = (boolean) DecoderHandler.decode(customPacketBuffer);
-            tank1 = (Fluids.InternalFluidTank) DecoderHandler.decode(customPacketBuffer);
-            tank2 = (Fluids.InternalFluidTank) DecoderHandler.decode(customPacketBuffer);
-            tank3 = (Fluids.InternalFluidTank) DecoderHandler.decode(customPacketBuffer);
-            tank4 = (Fluids.InternalFluidTank) DecoderHandler.decode(customPacketBuffer);
+            tank1 = (FluidTank) DecoderHandler.decode(customPacketBuffer);
+            tank2 = (FluidTank) DecoderHandler.decode(customPacketBuffer);
+            tank3 = (FluidTank) DecoderHandler.decode(customPacketBuffer);
+            tank4 = (FluidTank) DecoderHandler.decode(customPacketBuffer);
             progress = (double) DecoderHandler.decode(customPacketBuffer);
             bar = (int) DecoderHandler.decode(customPacketBuffer);
             sound = (boolean) DecoderHandler.decode(customPacketBuffer);

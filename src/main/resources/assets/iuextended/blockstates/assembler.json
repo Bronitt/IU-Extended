@@ -3,7 +3,7 @@
   "variants" : {
     "type" : {
       "assembler" : {
-        "model" : "iuextended:assembler"
+        "model" : "iuextended:assembler_main"
       },
       "assembler_main" : {
         "model" : "iuextended:assembler_main"
@@ -11,10 +11,16 @@
       "assembler_casing" : {
         "model" : "iuextended:assembler_casing"
       },
+      "assembler_casing_active" : {
+        "model" : "iuextended:assembler_casing"
+      },
       "assembler_input_fluid" : {
         "model" : "iuextended:assembler_input_fluid"
       },
       "assembler_heat" : {
+        "model" : "iuextended:assembler_heat"
+      },
+      "assembler_heat_active" : {
         "model" : "iuextended:assembler_heat"
       }
     },

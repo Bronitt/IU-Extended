@@ -1,6 +1,6 @@
 package bronit.iuextended.handlers;
 
-import bronit.iuextended.Constants;
+import bronit.iuextended.IUECore.Constants;
 import bronit.iuextended.IUEItem;
 import bronit.iuextended.blocks.multiblock.assembler.BlockAssembler;
 import bronit.iuextended.blocks.multiblock.assembler.BlockMekaAssembler;

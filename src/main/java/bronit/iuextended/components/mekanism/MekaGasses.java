@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class MekaGasses extends AbstractComponent {
 
-    protected final List<InternalGasTank> managedTanks = new ArrayList();
+    protected final List<InternalGasTank> managedTanks = new ArrayList<>();
 
     public MekaGasses(TileEntityInventory parent) {
         super(parent);
@@ -26,7 +26,7 @@ public class MekaGasses extends AbstractComponent {
     public static Predicate<Gas> gasPredicate(Gas... gasses) {
         Collection<Gas> acceptedGasses;
         if (gasses.length > 10) {
-            acceptedGasses = new HashSet(Arrays.asList(gasses));
+            acceptedGasses = new HashSet<>(Arrays.asList(gasses));
         } else {
             acceptedGasses = Arrays.asList(gasses);
         }
@@ -38,12 +38,12 @@ public class MekaGasses extends AbstractComponent {
         Collection<Gas> acceptedGasses;
         if (gasses != null) {
             if (gasses.size() > 10) {
-                acceptedGasses = new HashSet(gasses);
+                acceptedGasses = new HashSet<>(gasses);
             } else {
                 acceptedGasses = gasses;
             }
         } else {
-            acceptedGasses = new ArrayList();
+            acceptedGasses = new ArrayList<>();
         }
 
         return acceptedGasses::contains;
@@ -76,7 +76,7 @@ public class MekaGasses extends AbstractComponent {
 
     public static class InternalGasTank extends GasTank {
         protected final String identifier;
-        List<String> gasList = new ArrayList();
+        List<String> gasList = new ArrayList<>();
         private InvSlot.TypeItemSlot typeItemSlot;
         private Predicate<Gas> acceptedGasses;
         private List<EnumFacing> inputSides;
@@ -87,12 +87,12 @@ public class MekaGasses extends AbstractComponent {
             super(capacity);
             this.identifier = identifier;
             this.acceptedGasses = acceptedGasses;
-            this.inputSides = new ArrayList(inputSides);
-            this.outputSides = new ArrayList(outputSides);
+            this.inputSides = new ArrayList<>(inputSides);
+            this.outputSides = new ArrayList<>(outputSides);
             this.typeItemSlot = typeItemSlot;
 
             for(Gas gas : getRegisteredGasses().values().stream().filter(acceptedGasses).collect(Collectors.toList())) {
-                this.gasList.add(Localization.translate(gas.getUnlocalizedName()));
+                this.gasList.add(Localization.translate(gas.getTranslationKey()));
             }
         }
 

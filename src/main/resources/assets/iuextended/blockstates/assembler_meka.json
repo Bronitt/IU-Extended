@@ -7,6 +7,9 @@
       },
       "assembler_meka_heat" : {
         "model" : "iuextended:assembler_meka_heat"
+      },
+      "assembler_meka_heat_active" : {
+        "model" : "iuextended:assembler_meka_heat"
       }
     },
     "facing" : {

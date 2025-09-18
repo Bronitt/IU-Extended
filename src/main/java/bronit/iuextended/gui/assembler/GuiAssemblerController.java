@@ -1,6 +1,6 @@
 package bronit.iuextended.gui.assembler;
 
-import bronit.iuextended.Constants;
+import bronit.iuextended.IUECore.Constants;
 import bronit.iuextended.container.assembler.ContainerAssemblerController;
 import bronit.iuextended.tile.mechanism.assembler.block.TileAssemblerMain;
 import com.denfop.Localization;
